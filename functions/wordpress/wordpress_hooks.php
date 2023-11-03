@@ -11,13 +11,13 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           'first_name' => $user_name,
           'user_pass' => $random_password,
           'user_email' => $email_form,
-          'role' => sanitize_title($compagnie[0]),
+          //'role' => sanitize_title($compagnie[0]),
           ]
         );
     
         $user = get_user_by( 'ID', $user_id );
         if ( $user ) {
-            $user->add_role( 'subscriber' );
+            $user->add_role( sanitize_title($compagnie[0]) );
         }
     
         if(is_wp_error($user_id)){
