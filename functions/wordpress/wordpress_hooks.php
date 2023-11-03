@@ -20,6 +20,11 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
             $user->add_role( sanitize_title($compagnie[0]) );
         }
     
+        // Use WP’s built-in email new user notification
+        add_action( 'user_register', function( $user_id ) {
+            wp_new_user_notification( $user_id, NULL, 'user' );
+        } );
+    
         if(is_wp_error($user_id)){
             $error = $user_id->get_error_message();
     
