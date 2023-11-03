@@ -37,4 +37,5 @@
     register_deactivation_hook( __FILE__, 'delete_func_deactivate' );
     
     require_once CONNECT_FUNCSNPNC_WP_DIR . 'functions/wordpress/wordpress_hooks.php';
+    require_once CONNECT_FUNCSNPNC_WP_DIR . 'functions/wordpress/wordpress_filters.php';
     require_once CONNECT_FUNCSNPNC_WP_DIR . 'functions/utils.php';
