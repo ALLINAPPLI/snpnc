@@ -11,7 +11,7 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           'first_name' => $user_name,
           'user_pass' => $random_password,
           'user_email' => $email_form,
-          'role' => $compagnie[0],
+          'role' => sanitize_title($compagnie[0]),
           ]
         );
     
