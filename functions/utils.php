@@ -14,7 +14,7 @@
         $typedecontrat = $submitFormData->get_posted_data('typedecontrat');
         update_field('type-de-contrat',trim($typedecontrat[0]), 'user_' . $userId);
         
-        // mapping compagnie : select compagnie
+        // mapping compagnie : select field
         $compagnie = $submitFormData->get_posted_data('compagnie');
         update_field('la_compagnie', trim($compagnie[0]), 'user_' . $userId);
     }
