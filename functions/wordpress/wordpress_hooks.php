@@ -58,6 +58,29 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
             if ( $user ) {
                 $user->add_role( sanitize_title($compagnie[0]) );
             }
+        } else {
+          // si le compte existe déjà on fait le processus mais on le recréé pas, on fait une mise à jour
+          // du compte WP. Mettre à jour également un champ MAJ dans les users meta
+          $updateUser = get_user_by( 'email', $email );
+          $updateUserID = $updateUser->ID;
+          // datetime now
+          $now = date('Ymd');
+  
+          // update the user
+          $updateUserdata = array(
+            'id' => $updateUserID,
+            'user_login' => $sanitize_prenom . '.' . $sanitize_nom,
+            'user_pass' => $password,
+            'user_email' => $email,
+            'nickname' => reset($name_parts),
+            'display_name' => $name,
+            'first_name' => $submission->get_posted_data('prenom'),
+            'last_name' => $submission->get_posted_data('nom'),
+          );
+          
+          // mapping ACF
+          mappingAcfFields($submission, $updateUser);
+          update_field('user_maj', $now, 'user_' . $updateUserID);
         }
         
     }
