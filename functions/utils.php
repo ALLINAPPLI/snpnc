@@ -1,8 +1,7 @@
 <?php
 
-    function mappingAcfFields($submitFormData, $userData) {
-        
-        $userId = $userData->data->ID;
+    function mappingAcfFields($submitFormData, $userId) {
+      
         // mapping telephone : text field
         update_field('user_telephone',trim($submitFormData->get_posted_data('telephone')), 'user_' . $userId);
     

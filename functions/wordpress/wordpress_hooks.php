@@ -53,7 +53,7 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
             $user = get_user_by( 'ID', $user_id );
             
             // mapping ACF
-            mappingAcfFields($submission, $user);
+            mappingAcfFields($submission, $user_id);
             
             if ( $user ) {
                 $user->add_role( sanitize_title($compagnie[0]) );
@@ -79,7 +79,7 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           );
           
           // mapping ACF
-          mappingAcfFields($submission, $updateUser);
+          mappingAcfFields($submission, $updateUserID);
           update_field('user_maj', $now, 'user_' . $updateUserID);
         }
         
