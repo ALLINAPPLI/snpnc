@@ -66,6 +66,8 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           // datetime now
           $now = date('Ymd');
   
+          $updateCompagnie = $submission->get_posted_data('compagnie');
+  
           // update the user
           $updateUserdata = array(
             'id' => $updateUserID,
@@ -81,6 +83,10 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           // mapping ACF
           mappingAcfFields($submission, $updateUserID);
           update_field('user_maj', $now, 'user_' . $updateUserID);
+  
+          if ( $updateUser ) {
+            $updateUser->add_role( sanitize_title($compagnie[0]) );
+          }
           
           //modification du formulaire mais cela ne fonctione pas pour le moment
           //$submission->set_response($contact_form->filter_message(__( "Merci pour votre réadhésion. Nous reviendrons vers vous prochainement !", 'contact-form-7' )));
