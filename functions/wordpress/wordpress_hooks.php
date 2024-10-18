@@ -82,7 +82,8 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           mappingAcfFields($submission, $updateUserID);
           update_field('user_maj', $now, 'user_' . $updateUserID);
           
-          $submission->set_response($contact_form->filter_message(__( "Merci pour votre réadhésion. Nous reviendrons vers vous prochainement !", 'contact-form-7' )));
+          //modification du formulaire mais cela ne fonctione pas pour le moment
+          //$submission->set_response($contact_form->filter_message(__( "Merci pour votre réadhésion. Nous reviendrons vers vous prochainement !", 'contact-form-7' )));
         }
         
     }
