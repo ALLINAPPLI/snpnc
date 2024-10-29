@@ -85,10 +85,16 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           update_field('user_maj', $now, 'user_' . $updateUserID);
   
           if ( $updateUser ) {
+            $role_update_user = $updateUser->data->roles;
+            foreach ($role_update_user as $key => $value) {
+              if($value == 'subscriber' || $value == 'administrator' || $value == 'editor' || $value == 'author' || $value == 'contributor') {
+                remove_role($value);
+              }
+            }
             $updateUser->add_role( sanitize_title($compagnie[0]) );
           }
           
-          //modification du formulaire mais cela ne fonctione pas pour le moment
+          //modification du formulaire mais cela ne fonctionne pas pour le moment
           //$submission->set_response($contact_form->filter_message(__( "Merci pour votre réadhésion. Nous reviendrons vers vous prochainement !", 'contact-form-7' )));
         }
         
