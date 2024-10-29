@@ -85,12 +85,28 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           update_field('user_maj', $now, 'user_' . $updateUserID);
   
           if ( $updateUser ) {
-            $role_update_user = $updateUser->data->roles;
-            foreach ($role_update_user as $key => $value) {
-              if($value !== 'subscriber' || $value !== 'administrator' || $value !== 'editor' || $value !== 'author' || $value !== 'contributor') {
-                remove_role($value);
+            $role_update_user = $updateUser->roles;
+            $role_to_keep = [];
+            $natives_roles = ['administrator', 'editor', 'author', 'contributor', 'subscriber','anonymous'];
+            
+            // identifier les roles à conserver
+            foreach ($role_update_user as $roleuser) {
+              if(in_array($roleuser,$natives_roles)) {
+                $role_to_keep[] = $roleuser;
               }
             }
+            
+            // suppression de tous les roles de l'utilisateur
+            foreach ($role_update_user as $roledelete) {
+              $updateUser->remove_role($roledelete);
+            }
+            
+            // ajout des roles natifs à l'utilisateur
+            foreach ($role_to_keep as $roleadd) {
+              $updateUser->add_role($roleadd);
+            }
+            
+            // ajout du role compagnie
             $updateUser->add_role( sanitize_title($compagnie[0]) );
           }
           
