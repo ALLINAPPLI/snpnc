@@ -87,7 +87,7 @@ add_action('wpcf7_before_send_mail',function($contact_form, &$abort, $submission
           if ( $updateUser ) {
             $role_update_user = $updateUser->data->roles;
             foreach ($role_update_user as $key => $value) {
-              if($value == 'subscriber' || $value == 'administrator' || $value == 'editor' || $value == 'author' || $value == 'contributor') {
+              if($value !== 'subscriber' || $value !== 'administrator' || $value !== 'editor' || $value !== 'author' || $value !== 'contributor') {
                 remove_role($value);
               }
             }
