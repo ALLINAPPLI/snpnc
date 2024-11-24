@@ -12,3 +12,12 @@
     
         return $result;
     }, 20, 2 );*/
+
+  add_filter('filter_posted_data',function($value,$posted_data){
+    
+    if(in_array("non",$posted_data['demission'])) {
+      $value = false;
+    }
+    
+    return $value;
+  },10,2);
